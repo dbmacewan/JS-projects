@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- David M 1930097 7/26/2021 all pages implement external/embedded/inline css styles -->
+<html lang="en">
+    <head>
+        <title>
+            Exploring Cryptography and JavaScript :: Caesar Cipher
+        </title>
+        <meta charset="utf-8">
+        <meta name="description" content="Educational information about basic cryptography methods and attack
+         vectors using simulators.">
+        <link rel="stylesheet" href="index.css">
+        <script src="romancipher.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js">
+        </script>
+        <style>
+            audio {
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper"><!-- page wrapper -->
+            <div class="nav-container"> <!-- parent container for navigation section -->
+                <div class="nav-child"> <!-- child container for nav links -->
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="caesarcipher.html">Caesar Cipher</a></li>
+                    <li><a href="contribute.html">Contribute</a></li>
+                </ul>
+            </nav>
+            </div> <!-- end nav link container-->
+            <div class="audio-player"> <!-- child container for audio player controls -->
+                <audio controls style="height: 3em;">
+                    <source src="away.mp3" type="audio/mpeg">
+                    Audio element is not supported by your browser.
+                </audio>
+            </div> <!-- end child container for audio controls-->
+            </div> <!-- end parent nav container -->
+            <div class="header-index"> <!-- container for header image and text-->
+            <header>
+                <img id="index-image" src="roman.png" alt="Roman Colosseum" width="1920" height="300">
+                <div class="header-index-text">
+                <h1>Exploring Cryptography + JavaScript</h1>
+                </div> <!-- end header-index-text -->
+            </header>
+            </div> <!-- end header image container -->
+            <main>
+                <div class="parent-container"> <!-- parent container for 2 columns -->
+                    <div class="child-container-two">
+                        <h2 class="text-center">Caesar Cipher Simulator</h2>
+                        <form class="caesar-cipher">
+                            <div class="child-container-one"> <!-- container for input text area -->
+                            <label for="userText">Input text:</label>
+                            <textarea id="userText" rows="10" cols="20"></textarea>
+                            <br>
+                            <br>
+                            <label for="rightKey">Select a right shift key:</label>
+                            <input type="number" id="rightKey" min="1" max="25" required="required"><br>
+                            <label for="leftKey">Left shift key:</label>
+                            <input type="number" id="leftKey" min="1" max="25" disabled="disabled"><br>
+                            <input type="button" onclick="caesarEn()" value="Encrypt"><br>
+                            <input type="button" onclick="caesarDe()" value="Decrypt"><br>
+                            </div> <!-- end container for input text area -->
+                            <div class="child-container-one"> <!-- container for output text area -->
+                            <label for="outputText">Output text:</label>
+                            <textarea id="outputText" rows="10" cols="20"></textarea><br><br>
+                            <label for="freqattack">Index of Coincidence: </label>
+                            <input type="button" id="freqattack" onclick="freqAttack()" value="Frequency Attack"><br>
+                            <label for="updateWrong">Update chart with incorrect key:</label>
+                            <input type="button" id="updateWrong" value="Update Chart" onclick="updateChartWrongValue()"><br><br>
+                            <input type="button" value="Reset" onclick="clearText()"><br>
+                            </div> <!-- end container for output text area -->
+                        </form>
+                        <br class="clear">
+                        <p id="results" class="text-center"></p>
+                        <div id="chartCanvas">
+                        <canvas id="iocChart"></canvas>
+                        </div>
+                        <script>
+                            var ctx = document.getElementById('iocChart').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                data: {
+                                    datasets: [{
+                                        type: 'bar',
+                                        label: 'Index of Coincidence',
+                                        data: [8120,1490,2710,4320,12020,2300,2030,5920,7310,100,690,
+                                        3980,2610,6950,7680,1820,110,6020,6280,9100,2880,1110,2090,170,2110,70],
+                                        borderColor: 'rgb(255, 99, 132)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                                    }, {
+                                        type: 'line',
+                                        label: 'Plaintext score',
+                                        data: [cipherBook[0].avgFreq],
+                                        fill: false,
+                                        borderColor: 'rgb(0, 0, 0)'
+                                    }],
+                                    labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+                                },
+                            });
+
+                            function updateChart(){
+                                myChart.data.datasets[1].data = cipherBook[0].avgFreq;
+                                myChart.update();
+                            }
+                            var wrong = 1;
+                            function updateChartWrongValue(){
+                                myChart.data.datasets[1].data = cipherBook[wrong].avgFreq;
+                                myChart.update();
+                                document.getElementById("results").innerHTML = cipherBook[wrong].cipherText + 
+                                "<br>Index of Coincidence score: " + cipherBook[wrong].score + "<br>left shift key: " 
+                                + cipherBook[wrong].shift;
+                                wrong++;
+                            }
+                        </script>
+                    </div> <!-- end child-container-two-->
+                    <div class="child-container-three">
+                        <h2 class="text-center">How to Use</h2>
+                        <h4>Encrypting:</h4>
+                        <ol>
+                            <li>Enter desired plaintext (unencrypted) into the input text box.</li>
+                            <li>Select a right shift key in the drop down box beneath the input text 
+                                box.</li>
+                            <li>Click the Encrypt button.</li>
+                        </ol>
+                        <p>Congratulations, the plaintext is now encrypted into cipher text using the 
+                            key you selected in the output text box!</p>
+                        <h4>Decrypting:</h4>
+                        <ol>
+                            <li>Copy the encrypted ciphertext from the output text box.</li>
+                            <li>Paste the ciphertext into the input text box.</li>
+                            <li>If you have not changed the right shift key, click the Decrypt button.</li>
+                        </ol>
+                        <p>The ciphertext should now be converted into plaintext in the text output box.
+                        </p>
+                        <h4>Frequency Attack:</h4>
+                        <ol>
+                            <li>Enter ciphertext into the input text box.</li>
+                            <li>Click the Frequency Attack button.</li>
+                        </ol>
+                        <p>The plaintext should now be displayed above the graph. If the text 
+                            displayed is not plaintext try using a longer length of ciphertext, as this method 
+                            relies on the statistical frequency of letters in the English language.
+                        </p>
+                        <h4>Reading the Graph:</h4>
+                        <p>The solid pink bar graph represents the expected frequency of individual 
+                            letters in the English language. The black line graph represents the 
+                            frequency of letters calculated in the ciphertext. The greater the line 
+                            deviation from the bar, the higher the index of coincidence score is, and 
+                            thus is less likely to be the correct decryption. Clicking the Update Chart 
+                            button will use the next likely key, displaying the new plaintext,
+                            IoC score, and left shift key as well as updating the graph. The graph is 
+                            interactive, mousing over a point will give you an exact value.
+                        </p>
+                        <h4>Source Code:</h4>
+                        <p>The source code for this JavaScript application 
+                            can be found <a href="romancipher.js">here.</a></p>
+                    </div> <!-- end child-container-three-->
+                </div> <!-- end parent container for 2 columns -->
+            </main>
+            <footer>
+                <h5>Image Credits: <a href="https://www.pexels.com/photo/the-coliseum-161858/"
+                    target="_blank">Header Image</a>
+                    Sound Credits: <a href="https://freemusicarchive.org/music/Meydan/Ambient_1860/Away_1569"
+                    target="_blank">Page Music</a>
+                </h5>
+                <h5>Date Created: 7/26/2021 | Date Coded: 7/26/2021 | David | CISW327 8wk Summer 2021</h5>
+            </footer>
+        </div> <!-- end page wrapper -->
+    </body>
+</html>

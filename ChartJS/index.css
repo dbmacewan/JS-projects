@@ -1,0 +1,209 @@
+/* David M 1930097 7/26/2021*/
+
+* { box-sizing: border-box; } /* universal selector for all html elements to apply the border-box style */
+
+/* color combos: BEECED, 334040, 83A3A3, C8F9FA, 99BFBF*/
+
+#wrapper { /* main wrapper that holds entire page */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1920px; /* wanted to increase size to 1080p, 1024px seems outdated for max size */
+    background-color: #83A3A3;
+}
+
+#index-image {
+    width: 100%;
+    height: auto; /* this resizes the header image and keeps the aspect ratio */
+}
+
+#contribute {
+    letter-spacing: 1em; /* header text decoration */
+}
+
+#freqattack { /* freq attack button size */
+    width: 150px;
+}
+
+#updateWrong { /* update chart button size */
+    width: 150px;
+}
+
+#userText { /* input textbox settings */
+    width: 65%;
+}
+
+#outputText { /* output textbox settings */
+    width: 65%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.cont-table { /* center table on contribute page */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.cont-table * { /* contribute page table settings */
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.clear {
+    clear: left;
+}
+
+form.contact { /* contribute page form settings */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.contact input[type='submit'] { /* contribute page form settings */
+    background-color: #1e90ff;
+    cursor: pointer;
+    padding: .5em .5em .5em .5em;
+}
+
+.contact input[type='submit']:hover { /* contribute page form settings */
+    background-color: #4169e1;
+}
+
+.caesar-cipher * { /* cipher page form settings */
+    vertical-align: top;
+}
+
+form.caesar-cipher { /* cipher page form settings */
+    text-align: right;
+}
+
+.nav-container { /*nav bar container settings */
+    width: 100%;
+    height: 3em;
+    padding-bottom: 1em;
+    background-color:#83a3a3;
+    display: inline-flex;
+}
+
+.nav-child { /* left side nav links */
+    width: 80%;
+    height: 2.7em;
+}
+
+.audio-player {
+    height: 2.7em;
+    width: 20%;
+}
+
+.header-index { /* container for header text */
+    position: relative;
+    text-align: center;
+}
+
+.header-index-text { /* postions text in the center of the header image */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: .2em;
+    font-size: 1.2em;
+}
+
+.parent-container { /* box container, holds 3 child containers */
+    width: 100%;
+    padding: 0;
+    display: inline-flex; /* IMPORTANT, will not format correctly without this option */
+}
+
+.child-container-three { /* class for row of 3 items */
+    padding: 0.5em;
+    float: left; /* make the items display side by side */
+    width: 33%;
+    border: 2px solid #333333;
+    margin: .5em;
+    background-color: #99bfbf;
+}
+
+.child-container-two {
+    padding: 0.5em;
+    float: left;
+    width: 66%;
+    border: 2px solid #333333;
+    margin: .5em;
+    background-color: #99bfbf;
+}
+
+.child-container-one {
+    width: 50%;
+    margin: auto;
+    float: left;
+    background-color: #99bfbf;
+}
+
+h2 {
+    font-family: helvetica, serif;
+}
+
+nav {
+    font-family: helvetica, serif;
+}
+
+nav ul {
+    text-align: center;
+    list-style-type: none;
+    margin-left: -2.5em;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li a {
+    padding: 1em 1.5em .95em 1.5em;
+    background-color: #beeced;
+    text-decoration: none;
+}
+
+header {
+    font-family: helvetica, serif;
+    width: 100%;
+    height: auto;
+    color: #C8F9FA;
+    text-shadow: 2px 2px #1f1f1f;
+}
+
+body {
+    font-family: Garamond, sans-serif;
+    background-color: #334040;
+}
+
+iframe {
+    width: 100%;
+    max-height: 100%;
+    border: 0;
+}
+
+footer {
+    text-align: center;
+}
+
+a {
+    color: #000000; /* link color before visting or hovering */
+}
+
+a:hover { /* link color while hovering and BEFORE visiting */
+    background-color: #C8F9FA;
+    color: #83a3a3;
+}
+
+a:visited { /* link color after visting */
+    color: #334040;
+    background-color: #99bfbf;
+}
+
+a:visited:hover { /* link color after visting and while hovering */
+    background-color: #C8F9FA;
+    color: #83a3a3;
+}
